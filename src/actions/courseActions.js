@@ -1,3 +1,4 @@
 export function createCourse(course) {
-  return {type: 'CREATE_COURSE', course}
+  // console.log(`Inside createCourse function`);
+  return {type: 'CREATE_COURSE', course};
 }

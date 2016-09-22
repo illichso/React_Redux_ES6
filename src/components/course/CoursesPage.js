@@ -21,13 +21,19 @@ class CoursePage extends React.Component {
   }
 
   onClickSave(){
+    // console.log(`Inside onClickSave function with this title[${this.state.course.title}]`);
     this.props.dispatch(courseActions.createCourse(this.state.course));
+    // console.log(`Returned back to onClickSave function on CoursePage`);
+  }
+  courseRow (course, index) {
+    <div key={index}>{course.title}</div>;
   }
 
   render (){
     return (
       <div>
         <h1>Courses</h1>
+        {this.props.courses.map(this.courseRow)}
         <h2>Add Course</h2>
         <input
           type="text"
@@ -42,6 +48,11 @@ class CoursePage extends React.Component {
     );
   }
 }
+
+CoursePage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  courses: PropTypes.array.isRequired
+};
 
 function mapStateToProps(state, ownProps){
   return {
