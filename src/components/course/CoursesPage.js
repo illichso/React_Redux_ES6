@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
+import CourseList from './CourseList';
 
 class CoursePage extends React.Component {
   constructor(props, context) {
@@ -9,20 +10,15 @@ class CoursePage extends React.Component {
   }
 
   courseRow (course, index) {
-    console.log(`courseRow function on CoursePage.js with Course title is [${course.title}]; index=[${index}]`);
-    debugger;
-     <div key={index}>{course.title}</div>;
-    console.log(`Exiting function on CoursePage.js with Course title is [${course.title}]; index=[${index}]`);
+    <div key={index}>{course.title}</div>;
   }
 
-  render (){
-    console.log(`render function on CoursePage.js before debugger`);
-    debugger;
-    console.log(`render function on CoursePage.js after debugger`);
+  render () {
+    const {courses} = this.props;
     return (
       <div>
         <h1>Courses</h1>
-        {this.props.courses.map(this.courseRow)}
+        <CourseList courses={courses}/>
       </div>
     );
   }
@@ -34,18 +30,12 @@ CoursePage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps){
-  console.log(`mapStateToProps function on CoursePage.js before debugger`);
-  debugger;
-  console.log(`mapStateToProps function on CoursePage.js After debugger`);
   return {
     courses: state.courses
   };
 }
 
 function mapDispatchToProps(dispatch){
-  console.log(`!!!mapDispatchToProps function on CoursePage.js before debugger`);
-  debugger;
-  console.log(`!!!mapDispatchToProps function on CoursePage.js After debugger`);
   return {
     actions: bindActionCreators(courseActions, dispatch)
   };
