@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 
 class CoursePage extends React.Component {
@@ -18,13 +19,15 @@ class CoursePage extends React.Component {
     const course = this.state.course;
     course.title = event.target.value;
     this.setState({course: course});
+    console.log(`onTitleChange function on CoursePage.js with course[${course}]; title[${course.title}]; state [${this.state}] before  debugger`);
+    debugger;
   }
 
   onClickSave(){
     console.log(`onClickSave function on CoursePage.js with title[${this.state.course.title}] before 1st debugger`);
     debugger;
     console.log(`onClickSave function on CoursePage.js  with title[${this.state.course.title}] after 1st debugger before dispatching`);
-    this.props.createCourse(this.state.course);
+    this.props.actions.createCourse(this.state.course);
     console.log(`onClickSave function on CoursePage.js  with title[${this.state.course.title}] after  dispatching, before 2st debugger`);
     debugger;
     console.log(`onClickSave function on CoursePage.js  with title[${this.state.course.title}] after 2st debugger`);
@@ -32,7 +35,7 @@ class CoursePage extends React.Component {
   courseRow (course, index) {
     console.log(`courseRow function on CoursePage.js with Course title is [${course.title}]; index=[${index}]`);
     debugger;
-    <div key={index}>{course.title}</div>;
+     <div key={index}>{course.title}</div>;
     console.log(`Exiting function on CoursePage.js with Course title is [${course.title}]; index=[${index}]`);
   }
 
@@ -61,7 +64,7 @@ class CoursePage extends React.Component {
 
 CoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
-  createCourse: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps){
@@ -78,7 +81,7 @@ function mapDispatchToProps(dispatch){
   debugger;
   console.log(`!!!mapDispatchToProps function on CoursePage.js After debugger`);
   return {
-    createCourse: course => dispatch(courseActions.createCourse(course))
+    actions: bindActionCreators(courseActions, dispatch)
   };
 }
 
