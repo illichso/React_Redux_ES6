@@ -21,12 +21,15 @@ class CoursePage extends React.Component {
   }
 
   onClickSave(){
-    // console.log(`Inside onClickSave function with this title[${this.state.course.title}]`);
+    console.log(`Inside onClickSave function with this title[${this.state.course.title}]`);
     this.props.dispatch(courseActions.createCourse(this.state.course));
-    // console.log(`Returned back to onClickSave function on CoursePage`);
+    console.log(`Exiting onClickSave function on CoursePage.js`);
   }
   courseRow (course, index) {
+    console.log(`Inside courseRow on CoursePage.js`);
+    console.log(`Course title is [${course.title}]`);
     <div key={index}>{course.title}</div>;
+    console.log(`Exiting courseRow on CoursePage.js`);
   }
 
   render (){
