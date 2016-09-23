@@ -6,32 +6,8 @@ import * as courseActions from '../../actions/courseActions';
 class CoursePage extends React.Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      course: {title: ""}
-    };
-
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onClickSave = this.onClickSave.bind(this);
   }
 
-  onTitleChange(event) {
-    const course = this.state.course;
-    course.title = event.target.value;
-    this.setState({course: course});
-    console.log(`onTitleChange function on CoursePage.js with course[${course}]; title[${course.title}]; state [${this.state}] before  debugger`);
-    debugger;
-  }
-
-  onClickSave(){
-    console.log(`onClickSave function on CoursePage.js with title[${this.state.course.title}] before 1st debugger`);
-    debugger;
-    console.log(`onClickSave function on CoursePage.js  with title[${this.state.course.title}] after 1st debugger before dispatching`);
-    this.props.actions.createCourse(this.state.course);
-    console.log(`onClickSave function on CoursePage.js  with title[${this.state.course.title}] after  dispatching, before 2st debugger`);
-    debugger;
-    console.log(`onClickSave function on CoursePage.js  with title[${this.state.course.title}] after 2st debugger`);
-  }
   courseRow (course, index) {
     console.log(`courseRow function on CoursePage.js with Course title is [${course.title}]; index=[${index}]`);
     debugger;
@@ -47,16 +23,6 @@ class CoursePage extends React.Component {
       <div>
         <h1>Courses</h1>
         {this.props.courses.map(this.courseRow)}
-        <h2>Add Course</h2>
-        <input
-          type="text"
-          onChange={this.onTitleChange}
-          value={this.state.course.title} />
-
-        <input
-          type="submit"
-          value="Save"
-          onClick={this.onClickSave} />
       </div>
     );
   }
