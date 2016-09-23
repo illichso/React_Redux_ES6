@@ -1,4 +1,6 @@
 export function createCourse(course) {
-  console.log(`Inside createCourse function with titel [${course.title}]`);
+  console.log(`createCourse function on courseAction.js with title [${course.title}] before debugger`);
+  debugger;
+  console.log(`createCourse function on courseAction.js with title [${course.title}] after debugger`);
   return {type: 'CREATE_COURSE', course};
 }
