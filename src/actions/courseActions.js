@@ -1,4 +1,4 @@
-import* as types from './actionTypes';
+import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
 
 export function loadCoursesSuccess(courses) {
