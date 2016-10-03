@@ -3,7 +3,6 @@ import {Link, IndexLink} from 'react-router';
 import LoadingDots from './LoadingDots';
 
 const Header = ({loading}) => {
-  debugger;
   return (
     <nav>
       <IndexLink to="/" activeCLassName="active">Home</IndexLink>
