@@ -11,7 +11,7 @@ const AuthorListRow = ({author, onDelete, deleting, errors}) => {
           disabled={deleting}
           value={deleting ? 'Deleting...' : 'Delete'}
           className="btn btn-primary"
-          onClick={onDelete}/>
+          onClick={event => onDelete(event, author)}/>
         </td>
       </tr>
   );

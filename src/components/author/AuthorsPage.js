@@ -20,15 +20,6 @@ export class AuthorPage extends React.Component {
     this.deleteAuthor = this.deleteAuthor.bind(this);
   }
 
-  authorRow (author, index) {
-    <div key={index}>{author.firstName}</div>;
-  }
-
-  redirectToAddAuthorPage() {
-    this.context.router.push('/author');
-//    browserHistory.push('./author');
-  }
-
   componentWillReceiveProps(nextProps) {
     if(this.props.author.id
       != nextProps.author.id ) {
@@ -37,12 +28,23 @@ export class AuthorPage extends React.Component {
     }
   }
 
-  deleteAuthor(event) {
+  redirectToAddAuthorPage() {
+    this.context.router.push('/author');
+//    browserHistory.push('./author');
+  }
+
+
+  authorRow (author, index) {
+    <div key={index}>{author.firstName}</div>;
+  }
+
+  deleteAuthor(event, deletedAuthor) {
     event.preventDefault();
 
+    this.setState({author: deletedAuthor});
     this.setState({deleting: true});
 
-    this.props.actions.deleteAuthor(this.state.author)
+    this.props.actions.deleteAuthor(deletedAuthor)
       .then(() => this.redirect())
       .catch(error => {
         toastr.error(error);
@@ -61,7 +63,6 @@ export class AuthorPage extends React.Component {
                 onClick={this.redirectToAddAuthorPage}/>
         <AuthorList
           authors={authors}
-          author={this.state.author}
           onDelete={this.deleteAuthor}
           deleting={this.state.deleting}
           errors={this.state.errors}
