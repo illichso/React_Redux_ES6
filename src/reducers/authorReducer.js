@@ -18,6 +18,12 @@ export default function authorReducer(state = initialState.authors, action) {
         Object.assign({}, action.author)
       ];
 
+    case types.DELETE_AUTHOR_SUCCESS:
+      return [
+        ...state,
+        Object.assign({}, action.author.id)
+      ];
+
     default:
       return state;
   }

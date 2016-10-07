@@ -4,11 +4,20 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorList from './AuthorList';
 import {browserHistory} from 'react-router';
+import toastr from 'toastr';
 
-class AuthorPage extends React.Component {
+export class AuthorPage extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      author: Object.assign({}, this.props.author),
+      errors: {},
+      deleting: false
+    };
+
     this.redirectToAddAuthorPage = this.redirectToAddAuthorPage.bind(this);
+    this.deleteAuthor = this.deleteAuthor.bind(this);
   }
 
   authorRow (author, index) {
@@ -20,6 +29,27 @@ class AuthorPage extends React.Component {
 //    browserHistory.push('./author');
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.author.id
+      != nextProps.author.id ) {
+      // Necessary to populate from when existing author if loaded directly.
+      this.setState({author: Object.assign({}, nextProps.author)});
+    }
+  }
+
+  deleteAuthor(event) {
+    event.preventDefault();
+
+    this.setState({deleting: true});
+
+    this.props.actions.deleteAuthor(this.state.author)
+      .then(() => this.redirect())
+      .catch(error => {
+        toastr.error(error);
+        this.setState({deleting: false});
+      });
+  }
+
   render () {
     const {authors} = this.props;
     return (
@@ -29,7 +59,13 @@ class AuthorPage extends React.Component {
                 value="Add author"
                 className="btn btn-primary"
                 onClick={this.redirectToAddAuthorPage}/>
-        <AuthorList authors={authors}/>
+        <AuthorList
+          authors={authors}
+          author={this.state.author}
+          onDelete={this.deleteAuthor}
+          deleting={this.state.deleting}
+          errors={this.state.errors}
+          />
       </div>
     );
   }
@@ -37,6 +73,7 @@ class AuthorPage extends React.Component {
 
 AuthorPage.propTypes = {
   authors: PropTypes.array.isRequired,
+  author: PropTypes.object,
   actions: PropTypes.object.isRequired
 };
 
@@ -46,7 +83,8 @@ AuthorPage.contextTypes = {
 
 function mapStateToProps(state, ownProps){
   return {
-    authors: state.authors
+    authors: state.authors,
+    author: state.author
   };
 }
 
