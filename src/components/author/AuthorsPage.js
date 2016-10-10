@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorList from './AuthorList';
 import {browserHistory} from 'react-router';
+import {getById} from '../../selector/selectors';
 import toastr from 'toastr';
 
 export class AuthorPage extends React.Component {
@@ -21,8 +23,8 @@ export class AuthorPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.author.id
-      != nextProps.author.id ) {
+    if(this.props.author &&
+      this.props.author.id != nextProps.author.id ) {
       // Necessary to populate from when existing author if loaded directly.
       this.setState({author: Object.assign({}, nextProps.author)});
     }
@@ -47,9 +49,16 @@ export class AuthorPage extends React.Component {
     this.props.actions.deleteAuthor(deletedAuthor)
       .then(() => this.redirect())
       .catch(error => {
+        console.log(error);
         toastr.error(error);
         this.setState({deleting: false});
       });
+  }
+
+  redirect () {
+    this.setState({deleting: false});
+    toastr.success('Author deleted');
+    // this.context.router.push('/authors');
   }
 
   render () {
@@ -83,9 +92,17 @@ AuthorPage.contextTypes = {
 };
 
 function mapStateToProps(state, ownProps){
+  const authorId = ownProps.params.id;
+  let author = {id: '', firstName: '', lastName: ''};
+
+  if (authorId && state.authors.length > 0) {
+    author = getById(state.authors, authorId);
+  }
+
   return {
-    authors: state.authors,
-    author: state.author
+    author: author,
+    authors: state.authors
+
   };
 }
 

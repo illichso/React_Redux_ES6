@@ -71,7 +71,7 @@ class AuthorApi {
         const indexOfAuthorToDelete = authors.findIndex(author => {
           author.id == authorId;
         });
-        authors.splice(indexOfAuthorToDelete, 1);
+        authors.splice(0, 1);
         resolve();
       }, delay);
     });

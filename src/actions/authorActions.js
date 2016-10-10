@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as types from './actionTypes';
 import authorApi from '../api/mockAuthorApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
@@ -24,6 +25,7 @@ export function loadAuthors() {
     return authorApi.getAllAuthors().then(authors => {
       dispatch(loadAuthorsSuccess(authors));
     }).catch((error) => {
+      console.log(error);
       throw(error);
     });
   };
@@ -36,8 +38,8 @@ export function saveAuthor(author) {
       author.id ? dispatch(updateAuthorSuccess(savedAuthor)) :
       dispatch(createAuthorSuccess(savedAuthor));
     }).catch(error => {
-      dispatch(ajaxCallError(error));
       console.log(error);
+      dispatch(ajaxCallError(error));
       throw(error);
     });
   };
@@ -49,6 +51,7 @@ export function deleteAuthor(author) {
     return authorApi.deleteAuthor(author.id).then(authors => {
       dispatch(deleteAuthorSuccess(author.id));
     }).catch((error) => {
+      console.log(error);
       throw(error);
     });
   };

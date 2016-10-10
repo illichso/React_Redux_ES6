@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
@@ -20,6 +21,7 @@ export function loadCourses() {
     return courseApi.getAllCourses().then(courses => {
       dispatch(loadCoursesSuccess(courses));
     }).catch(error => {
+      console.log(error);
       throw(error);
     });
   };
@@ -33,6 +35,7 @@ export function saveCourse(course) {
       dispatch(createCourseSuccess(savedCourse));
     }).catch(error => {
       dispatch(ajaxCallError(error));
+      console.log(error);
       throw(error);
     });
   };
