@@ -5,9 +5,8 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorList from './AuthorList';
 import {browserHistory} from 'react-router';
-import {getById} from '../../selector/selectors';
+import {getById, getFullAuthorName} from '../../selectors/selectors';
 import toastr from 'toastr';
-import {getFullAuthorName} from './AuthorUtil';
 
 export class AuthorPage extends React.Component {
   constructor(props, context) {

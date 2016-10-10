@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorForm  from './AuthorForm';
 import toastr from 'toastr';
-import {getFullAuthorName} from './AuthorUtil';
+import {getFullAuthorName} from '../../selectors/selectors';
 
 export class ManageAuthorPage extends React.Component {
   constructor(props, context){
