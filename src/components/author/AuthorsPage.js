@@ -46,19 +46,38 @@ export class AuthorPage extends React.Component {
     this.setState({author: author});
     this.setState({deleting: true});
 
-    this.props.actions.deleteAuthor(author)
-      .then(() => this.notifySuccessfulAuthorDeletion(author))
-      .catch(error => {
-        console.log(error);
-        toastr.error(error);
-        this.setState({deleting: false});
-      });
+    const canDeleteAuthor = this.checkIfAuthorCanBeDeleted(author.id);
+
+    if(canDeleteAuthor){
+      this.props.actions.deleteAuthor(author)
+        .then(() => this.notifySuccessfulAuthorDeletion(author))
+        .catch(error => {
+          console.log(error);
+          toastr.error(error);
+          this.resetDeleteingValueInState();
+        });
+    } else {
+      this.notifyNotSuccessfulAuthorDeletion(author);
+    }
+  }
+
+  checkIfAuthorCanBeDeleted(authorId) {
+    return this.props.courses.filter(course =>
+      course.authorId == authorId).length == 0;
   }
 
   notifySuccessfulAuthorDeletion (author) {
-    this.setState({deleting: false});
+    this.resetDeleteingValueInState();
     toastr.success(getFullAuthorName(author) + ' is deleted');
-    // this.context.router.push('/authors');
+  }
+
+  notifyNotSuccessfulAuthorDeletion (author) {
+    this.resetDeleteingValueInState();
+    toastr.warning(getFullAuthorName(author) + ' cannot be deleted because there are courses by this author');
+  }
+
+  resetDeleteingValueInState() {
+    this.setState({deleting: false});
   }
 
   render () {
@@ -83,6 +102,7 @@ export class AuthorPage extends React.Component {
 
 AuthorPage.propTypes = {
   authors: PropTypes.array.isRequired,
+  courses: PropTypes.array.isRequired,
   author: PropTypes.object,
   actions: PropTypes.object.isRequired
 };
@@ -101,8 +121,8 @@ function mapStateToProps(state, ownProps){
 
   return {
     author: author,
-    authors: state.authors
-
+    authors: state.authors,
+    courses: state.courses
   };
 }
 
