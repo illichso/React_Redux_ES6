@@ -49,7 +49,7 @@ export function deleteAuthor(author) {
   return dispatch => {
     dispatch(beginAjaxCall());
     return authorApi.deleteAuthor(author.id).then(authors => {
-      dispatch(deleteAuthorSuccess(author.id));
+      dispatch(deleteAuthorSuccess(author));
     }).catch((error) => {
       console.log(error);
       throw(error);

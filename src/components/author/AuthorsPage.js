@@ -7,6 +7,7 @@ import AuthorList from './AuthorList';
 import {browserHistory} from 'react-router';
 import {getById} from '../../selector/selectors';
 import toastr from 'toastr';
+import {getFullAuthorName} from './AuthorUtil';
 
 export class AuthorPage extends React.Component {
   constructor(props, context) {
@@ -40,14 +41,14 @@ export class AuthorPage extends React.Component {
     <div key={index}>{author.firstName}</div>;
   }
 
-  deleteAuthor(event, deletedAuthor) {
+  deleteAuthor(event, author) {
     event.preventDefault();
 
-    this.setState({author: deletedAuthor});
+    this.setState({author: author});
     this.setState({deleting: true});
 
-    this.props.actions.deleteAuthor(deletedAuthor)
-      .then(() => this.redirect())
+    this.props.actions.deleteAuthor(author)
+      .then(() => this.notifySuccessfulAuthorDeletion(author))
       .catch(error => {
         console.log(error);
         toastr.error(error);
@@ -55,9 +56,9 @@ export class AuthorPage extends React.Component {
       });
   }
 
-  redirect () {
+  notifySuccessfulAuthorDeletion (author) {
     this.setState({deleting: false});
-    toastr.success('Author deleted');
+    toastr.success(getFullAuthorName(author) + ' is deleted');
     // this.context.router.push('/authors');
   }
 

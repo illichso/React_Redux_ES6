@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorForm  from './AuthorForm';
 import toastr from 'toastr';
+import {getFullAuthorName} from './AuthorUtil';
 
 export class ManageAuthorPage extends React.Component {
   constructor(props, context){
@@ -56,16 +57,16 @@ export class ManageAuthorPage extends React.Component {
     this.setState({saving: true});
 
     this.props.actions.saveAuthor(this.state.author)
-      .then(() => this.redirect())
+      .then(() => this.redirect(this.state.author))
       .catch(error => {
         toastr.error(error);
         this.setState({saving: false});
       });
   }
 
-  redirect () {
+  redirect (author) {
     this.setState({saving: false});
-    toastr.success('Author saved');
+    toastr.success(getFullAuthorName(author) + ' is saved');
     this.context.router.push('/authors');
   }
 
