@@ -13,7 +13,6 @@ export class AuthorPage extends React.Component {
 
     this.state = {
       author: Object.assign({}, this.props.author),
-      errors: {},
       deleting: false
     };
 
@@ -92,7 +91,6 @@ export class AuthorPage extends React.Component {
           authors={authors}
           onDelete={this.deleteAuthor}
           deleting={this.state.deleting}
-          errors={this.state.errors}
           />
       </div>
     );

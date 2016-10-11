@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-const AuthorListRow = ({author, onDelete, deleting, errors}) => {
+const AuthorListRow = ({author, onDelete, deleting}) => {
   return (
       <tr>
         <td><Link to={'/author/' + author.id}>{author.firstName}</Link></td>
@@ -20,8 +20,7 @@ const AuthorListRow = ({author, onDelete, deleting, errors}) => {
 AuthorListRow.propTypes = {
   author: PropTypes.object.isRequired,
   onDelete: React.PropTypes.func.isRequired,
-  deleting: React.PropTypes.bool,
-  errors: React.PropTypes.object
+  deleting: React.PropTypes.bool
 };
 
 export default AuthorListRow;
