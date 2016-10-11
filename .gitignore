@@ -29,7 +29,7 @@ node_modules
 #dist folder
 dist
 
-# IDEA project files
+# IDEA/Webstorm project files
 .idea
 *.iml
 
