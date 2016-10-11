@@ -56,6 +56,10 @@ class CoursePage extends Component {
     this.setState({deleting: false});
   }
 
+  shouldShowCourseList(courses){
+    return courses && courses.length > 0;
+  }
+
   render () {
     const {courses} = this.props;
     return (
@@ -65,11 +69,13 @@ class CoursePage extends Component {
                 value="Add Course"
                 className="btn btn-primary"
                 onClick={this.redirectToAddCoursePage}/>
-        <CourseList
-          courses={courses}
-          onDelete={this.deleteCourse}
-          deleting={this.state.deleting}
-          />
+                {this.shouldShowCourseList(courses) 
+                  ? <CourseList
+                      courses={courses}
+                      onDelete={this.deleteCourse}
+                      deleting={this.state.deleting}/>
+                  : null
+                }
       </div>
     );
   }
