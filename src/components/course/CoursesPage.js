@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 import {browserHistory} from 'react-router';
-import {getById} from '../../selectors/selectors';
+import {getById, shouldShowList} from '../../selectors/selectors';
 import toastr from 'toastr';
 
 class CoursePage extends Component {
@@ -56,10 +56,6 @@ class CoursePage extends Component {
     this.setState({deleting: false});
   }
 
-  shouldShowCourseList(courses){
-    return courses && courses.length > 0;
-  }
-
   render () {
     const {courses} = this.props;
     return (
@@ -69,7 +65,7 @@ class CoursePage extends Component {
                 value="Add Course"
                 className="btn btn-primary"
                 onClick={this.redirectToAddCoursePage}/>
-                {this.shouldShowCourseList(courses) 
+                {shouldShowList(courses)
                   ? <CourseList
                       courses={courses}
                       onDelete={this.deleteCourse}

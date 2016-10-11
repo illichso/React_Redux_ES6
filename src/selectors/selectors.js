@@ -22,3 +22,7 @@ export function getById(entries, id) {
   console.error("Entity don't have 'id' field to do search by entries, please provide properly formatted objects only"); // eslint-disable-line
   return null;
 }
+
+export function shouldShowList(list) {
+  return list && list.length > 0;
+}

@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorList from './AuthorList';
 import {browserHistory} from 'react-router';
-import {getById, getFullAuthorName} from '../../selectors/selectors';
+import {getById, getFullAuthorName, shouldShowList} from '../../selectors/selectors';
 import toastr from 'toastr';
 
 export class AuthorPage extends Component {
@@ -87,11 +87,13 @@ export class AuthorPage extends Component {
                 value="Add author"
                 className="btn btn-primary"
                 onClick={this.redirectToAddAuthorPage}/>
-        <AuthorList
-          authors={authors}
-          onDelete={this.deleteAuthor}
-          deleting={this.state.deleting}
-          />
+              {shouldShowList(authors)
+                ? <AuthorList
+                  authors={authors}
+                  onDelete={this.deleteAuthor}
+                  deleting={this.state.deleting}/>
+                : null
+              }
       </div>
     );
   }
