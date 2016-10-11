@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
@@ -6,7 +6,7 @@ import AuthorForm  from './AuthorForm';
 import toastr from 'toastr';
 import {getFullAuthorName} from '../../selectors/selectors';
 
-export class ManageAuthorPage extends React.Component {
+export class ManageAuthorPage extends Component {
   constructor(props, context){
     super (props, context);
 

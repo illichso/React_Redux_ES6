@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
@@ -6,7 +6,7 @@ import CourseForm  from './CourseForm';
 import {authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
 
-export class ManageCoursePage extends React.Component {
+export class ManageCoursePage extends Component {
   constructor(props, context){
     super (props, context);
 

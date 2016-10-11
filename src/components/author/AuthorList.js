@@ -26,8 +26,8 @@ const AuthorList = ({authors, onDelete, deleting}) => {
 
 AuthorList.propTypes = {
   authors: PropTypes.array.isRequired,
-  onDelete: React.PropTypes.func.isRequired,
-  deleting: React.PropTypes.bool
+  onDelete: PropTypes.func.isRequired,
+  deleting: PropTypes.bool
 };
 
 export default AuthorList;

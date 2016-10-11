@@ -19,8 +19,8 @@ const AuthorListRow = ({author, onDelete, deleting}) => {
 
 AuthorListRow.propTypes = {
   author: PropTypes.object.isRequired,
-  onDelete: React.PropTypes.func.isRequired,
-  deleting: React.PropTypes.bool
+  onDelete: PropTypes.func.isRequired,
+  deleting: PropTypes.bool
 };
 
 export default AuthorListRow;

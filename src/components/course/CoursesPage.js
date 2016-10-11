@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
@@ -7,7 +7,7 @@ import {browserHistory} from 'react-router';
 import {getById} from '../../selectors/selectors';
 import toastr from 'toastr';
 
-class CoursePage extends React.Component {
+class CoursePage extends Component {
   constructor(props, context) {
     super(props, context);
 

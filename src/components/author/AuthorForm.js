@@ -30,11 +30,11 @@ const AuthorForm = ({ author, onSave, onChange, saving, errors}) => {
 };
 
 AuthorForm.propTypes = {
-  author: React.PropTypes.object.isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  saving: React.PropTypes.bool,
-  errors: React.PropTypes.object
+  author: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  saving: PropTypes.bool,
+  errors: PropTypes.object
 };
 
 export default AuthorForm;

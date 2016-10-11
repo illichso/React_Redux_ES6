@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
@@ -7,7 +7,7 @@ import {browserHistory} from 'react-router';
 import {getById, getFullAuthorName} from '../../selectors/selectors';
 import toastr from 'toastr';
 
-export class AuthorPage extends React.Component {
+export class AuthorPage extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -109,15 +109,7 @@ AuthorPage.contextTypes = {
 };
 
 function mapStateToProps(state, ownProps){
-  const authorId = ownProps.params.id;
-  let author = {id: '', firstName: '', lastName: ''};
-
-  if (authorId && state.authors.length > 0) {
-    author = getById(state.authors, authorId);
-  }
-
   return {
-    author: author,
     authors: state.authors,
     courses: state.courses
   };

@@ -29,8 +29,8 @@ const CourseList = ({courses, onDelete, deleting}) => {
 
 CourseList.propTypes = {
   courses: PropTypes.array.isRequired,
-  onDelete: React.PropTypes.func.isRequired,
-  deleting: React.PropTypes.bool
+  onDelete: PropTypes.func.isRequired,
+  deleting: PropTypes.bool
 };
 
 export default CourseList;

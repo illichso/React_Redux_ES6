@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes, Component} from 'react';
 
-class LoadingDots extends React.Component {
+class LoadingDots extends Component {
   constructor(props, context){
     super (props, context);
 
