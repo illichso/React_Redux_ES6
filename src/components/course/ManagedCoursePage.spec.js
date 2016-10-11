@@ -2,6 +2,11 @@ import React from 'react';
 import expect from 'expect';
 import {mount, shallow} from 'enzyme';
 import {ManageCoursePage} from './ManageCoursePage';
+import jsdom from 'jsdom';
+
+const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
+global.document = doc;
+global.window = doc.defaultView;
 
 describe('Manage Course Page', () => {
   it('sets error message when trying to save empty title', () => {

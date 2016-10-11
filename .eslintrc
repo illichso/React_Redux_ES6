@@ -27,6 +27,7 @@
     "quotes": 0,
     "no-console": 0,
     "no-debugger": 0,
+    "import/no-named-as-default": 0,
     "no-var": 1,
     "semi": [1, "always"],
     "no-trailing-spaces": 0,
