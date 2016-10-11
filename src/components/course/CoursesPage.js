@@ -4,11 +4,20 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 import {browserHistory} from 'react-router';
+import {getById} from '../../selectors/selectors';
+import toastr from 'toastr';
 
 class CoursePage extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      course: Object.assign({}, this.props.course),
+      deleting: false
+    };
+
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
+    this.deleteCourse = this.deleteCourse.bind(this);
   }
 
   courseRow (course, index) {
@@ -20,6 +29,33 @@ class CoursePage extends React.Component {
 //    browserHistory.push('./course');
   }
 
+  deleteCourse(event, course) {
+    event.preventDefault();
+
+    this.setState({course: course});
+    this.setState({deleting: true});
+
+    console.log(`deleteCourse func in CoursePage.js with course.id:[${course.id}]`);
+
+    this.props.actions.deleteCourse(course)
+      .then(() => this.notifySuccessfulCourseDeletion(course))
+      .catch(error => {
+        console.log(error);
+        toastr.error(error);
+        this.resetDeleteingValueInState();
+      });
+
+  }
+
+  notifySuccessfulCourseDeletion (course) {
+    this.resetDeleteingValueInState();
+    toastr.success(course.title+ ' is deleted');
+  }
+
+  resetDeleteingValueInState() {
+    this.setState({deleting: false});
+  }
+
   render () {
     const {courses} = this.props;
     return (
@@ -29,7 +65,11 @@ class CoursePage extends React.Component {
                 value="Add Course"
                 className="btn btn-primary"
                 onClick={this.redirectToAddCoursePage}/>
-        <CourseList courses={courses}/>
+        <CourseList
+          courses={courses}
+          onDelete={this.deleteCourse}
+          deleting={this.state.deleting}
+          />
       </div>
     );
   }
@@ -37,7 +77,8 @@ class CoursePage extends React.Component {
 
 CoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  course: PropTypes.object
 };
 
 CoursePage.contextTypes = {

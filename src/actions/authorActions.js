@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as types from './actionTypes';
 import authorApi from '../api/mockAuthorApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';

@@ -8,7 +8,7 @@ const AuthorList = ({authors, onDelete, deleting, errors}) => {
       <tr>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>&nbsp;</th>
+        <th width="100px">&nbsp;</th>
       </tr>
       </thead>
       <tbody>
