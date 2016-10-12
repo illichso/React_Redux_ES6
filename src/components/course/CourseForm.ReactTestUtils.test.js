@@ -3,7 +3,7 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import CourseForm from './CourseForm';
 
-function setup (saving) {
+const setup  = saving => {
   let props = {
     course: {}, saving: saving, errors: {},
     onSave: () => {},
@@ -19,7 +19,7 @@ function setup (saving) {
     output,
     renderer
   };
-}
+};
 
 describe('CourseForm via React Test Utils', () => {
   it('renders form and h1' , () => {

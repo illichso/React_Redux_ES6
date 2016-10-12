@@ -2,23 +2,23 @@ import * as types from './actionTypes';
 import authorApi from '../api/mockAuthorApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
-export function loadAuthorsSuccess(authors) {
+export const loadAuthorsSuccess = authors => {
   return {type: types.LOAD_AUTHORS_SUCCESS, authors};
-}
+};
 
-export function createAuthorSuccess(author) {
+export const createAuthorSuccess = author => {
   return {type: types.CREATE_AUTHOR_SUCCESS, author};
-}
+};
 
-export function updateAuthorSuccess(author) {
+export const updateAuthorSuccess = author => {
   return {type: types.UPDATE_AUTHOR_SUCCESS, author};
-}
+};
 
-export function deleteAuthorSuccess(author) {
+export const deleteAuthorSuccess = author => {
   return {type: types.DELETE_AUTHOR_SUCCESS, author};
-}
+};
 
-export function loadAuthors() {
+export const loadAuthors = () => {
   return dispatch => {
     dispatch(beginAjaxCall());
     return authorApi.getAllAuthors().then(authors => {
@@ -28,10 +28,10 @@ export function loadAuthors() {
       throw(error);
     });
   };
-}
+};
 
-export function saveAuthor(author) {
-  return function(dispatch, getState) {
+export const saveAuthor = author => {
+  return (dispatch, getState) => {
     dispatch(beginAjaxCall());
     return authorApi.saveAuthor(author).then(savedAuthor => {
       author.id ? dispatch(updateAuthorSuccess(savedAuthor)) :
@@ -42,9 +42,9 @@ export function saveAuthor(author) {
       throw(error);
     });
   };
-}
+};
 
-export function deleteAuthor(author) {
+export const deleteAuthor = author => {
   return dispatch => {
     dispatch(beginAjaxCall());
     return authorApi.deleteAuthor(author.id).then(authors => {
@@ -54,4 +54,4 @@ export function deleteAuthor(author) {
       throw(error);
     });
   };
-}
+};

@@ -2,24 +2,24 @@ import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
-export function loadCoursesSuccess(courses) {
+export const loadCoursesSuccess = courses => {
   return {type: types.LOAD_COURSES_SUCCESS, courses};
-}
+};
 
-export function createCourseSuccess(course) {
+export const createCourseSuccess = course => {
   return {type: types.CREATE_COURSE_SUCCESS, course};
-}
+};
 
-export function updateCourseSuccess(course) {
+export const updateCourseSuccess = course => {
   return {type: types.UPDATE_COURSE_SUCCESS, course};
-}
+};
 
-export function deleteCourseSuccess(course) {
+export const deleteCourseSuccess = course => {
   return {type: types.DELETE_COURSE_SUCCESS, course};
-}
+};
 
-export function loadCourses() {
-  return function(dispatch) {
+export const loadCourses = () => {
+  return dispatch => {
     dispatch(beginAjaxCall());
     return courseApi.getAllCourses().then(courses => {
       dispatch(loadCoursesSuccess(courses));
@@ -28,10 +28,10 @@ export function loadCourses() {
       throw(error);
     });
   };
-}
+};
 
-export function saveCourse(course) {
-  return function(dispatch, getState) {
+export const saveCourse = course => {
+  return (dispatch, getState) => {
     dispatch(beginAjaxCall());
     return courseApi.saveCourse(course).then(savedCourse => {
       course.id ? dispatch(updateCourseSuccess(savedCourse)) :
@@ -42,9 +42,9 @@ export function saveCourse(course) {
       throw(error);
     });
   };
-}
+};
 
-export function deleteCourse(course) {
+export const deleteCourse = course => {
   return dispatch => {
     dispatch(beginAjaxCall());
     return courseApi.deleteCourse(course.id).then(courses => {
@@ -54,4 +54,4 @@ export function deleteCourse(course) {
       throw(error);
     });
   };
-}
+};

@@ -4,7 +4,7 @@ import {mount, shallow} from 'enzyme';
 
 import CourseForm from './CourseForm';
 
-function setup (saving) {
+const setup = saving => {
   const props = {
     course: {}, saving: saving, errors: {},
     onSave: () => {},
@@ -12,7 +12,7 @@ function setup (saving) {
   };
 
   return shallow(<CourseForm {...props}/>);
-}
+};
 
 describe('CourseForm via Enzyme', () => {
   it('renders form and h1', () => {

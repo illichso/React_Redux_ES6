@@ -1,9 +1,9 @@
 import * as types from './actionTypes';
 
-export function beginAjaxCall() {
+export const  beginAjaxCall = () => {
   return {type: types.BEGIN_AJAX_CALL};
-}
+};
 
-export function ajaxCallError() {
+export const ajaxCallError = () => {
   return {type: types.AJAX_CALL_ERROR};
-}
+};

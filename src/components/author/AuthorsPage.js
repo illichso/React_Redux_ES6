@@ -110,17 +110,17 @@ AuthorPage.contextTypes = {
   router: PropTypes.object
 };
 
-function mapStateToProps(state, ownProps){
+const mapStateToProps = (state, ownProps) => {
   return {
     authors: state.authors,
     courses: state.courses
   };
-}
+};
 
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(authorActions, dispatch)
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorPage);
