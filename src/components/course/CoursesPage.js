@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 import {browserHistory} from 'react-router';
-import {getById, shouldShowList, sortCoursesByTitle} from '../../selectors/selectors';
+import {shouldShowList, sortCoursesByTitle} from '../../selectors/selectors';
 import toastr from 'toastr';
 
 class CoursePage extends Component {
