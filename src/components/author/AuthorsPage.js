@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorList from './AuthorList';
 import {browserHistory} from 'react-router';
-import {getById, getFullAuthorName, shouldShowList} from '../../selectors/selectors';
+import {getById, getFullAuthorName, shouldShowList, sortAuthors} from '../../selectors/selectors';
 import toastr from 'toastr';
 
 export class AuthorPage extends Component {
@@ -112,7 +112,8 @@ AuthorPage.contextTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    authors: state.authors,
+
+    authors: sortAuthors(state),
     courses: state.courses
   };
 };

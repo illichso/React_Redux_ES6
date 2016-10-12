@@ -33,5 +33,12 @@ const coursesSelector = state => state.courses;
 
 export const sortCoursesByTitle = createSelector(
   coursesSelector,
-  (courses) => [...courses].sort((a, b) => a.title < b.title ? -1 : 1)
+  (courses) => [...courses].sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1)
+);
+
+const authorSelector = state => state.authors;
+
+export const sortAuthors = createSelector(
+  authorSelector,
+  (authors) => [...authors].sort((a, b) => a.id.toLowerCase() < b.id.toLowerCase() ? -1 : 1)
 );
