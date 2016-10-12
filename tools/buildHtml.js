@@ -12,10 +12,12 @@ fs.readFile('src/index.html', 'utf8', (err, markup) => {
   //since a separate spreadsheet is only utililzed for the productiion buid, need to dynamically
   $('head').prepend('<link rel="stylesheet" href="styles.css">');
 
-  fs.writeFile('dist/index.html', $.html(), 'utf8', function (err) {
+  const error = err => {
     if (err) {
       return console.log(err);
     }
     console.log('index.html written to /dist'.green);
-  });
+  };
+
+  fs.writeFile('dist/index.html', $.html(), 'utf8', error);
 });

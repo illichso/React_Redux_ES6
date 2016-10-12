@@ -15,14 +15,18 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
+const sendRequestFile = (req, res) => {
   res.sendFile(path.join( __dirname, '../src/index.html'));
-});
+};
 
-app.listen(port, function(err) {
+app.get('*', sendRequestFile);
+
+const error = err => {
   if (err) {
     console.log(err);
   } else {
     open(`http://localhost:${port}`);
   }
-});
+};
+
+app.listen(port, error);

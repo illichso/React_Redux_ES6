@@ -14,7 +14,7 @@
 
 6. Handle 404's:
 - modifications should be done on the ManageCourse page
-Hits: add logic to mapStateToProps function
+Hits: add logic to mapStateToProps
 
 7. Show # courses in Header:
 this will be an example of how Redux's single store model really pays off.
@@ -31,4 +31,4 @@ Hint: mapStateToProps is were it should be done
 - consider keeping the old values for course data so you can revert changes when
 a user navigates to different page without saving.
 
-Several implementation are available in React and Flux course. 
+Several implementation are available in React and Flux course.
