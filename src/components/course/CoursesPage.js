@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 import {browserHistory} from 'react-router';
-import {getById, shouldShowList} from '../../selectors/selectors';
+import {getById, shouldShowList, sortCoursesByTitle} from '../../selectors/selectors';
 import toastr from 'toastr';
 
 class CoursePage extends Component {
@@ -87,16 +87,16 @@ CoursePage.contextTypes = {
   router: PropTypes.object
 };
 
-function mapStateToProps(state, ownProps){
+const  mapStateToProps = (state, ownProps) => {
   return {
-    courses: state.courses
+    courses: sortCoursesByTitle(state)
   };
-}
+};
 
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch =>{
   return {
     actions: bindActionCreators(courseActions, dispatch)
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);

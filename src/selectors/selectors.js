@@ -1,3 +1,5 @@
+import {createSelector} from "reselect";
+
 export function getFullAuthorName(author) {
   return author.firstName + ' ' + author.lastName;
 }
@@ -26,3 +28,10 @@ export function getById(entries, id) {
 export function shouldShowList(list) {
   return list && list.length > 0;
 }
+
+const coursesSelector = state => state.courses;
+
+export const sortCoursesByTitle = createSelector(
+  coursesSelector,
+  (courses) => [...courses].sort((a, b) => a.title < b.title ? -1 : 1)
+);
