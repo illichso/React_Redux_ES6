@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
+import {Router, Route, withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm  from './CourseForm';
@@ -14,12 +15,18 @@ export class ManageCoursePage extends Component {
     this.state = {
       course: Object.assign({}, this.props.course),
       errors: {},
-      saving: false
+      saving: false,
+      isSaved : true
     };
 
     this.updateCourseState = this.updateCourseState.bind(this);
     this.saveCourse = this.saveCourse.bind(this);
+    this.routerWillLeave = this.routerWillLeave.bind(this);
   }
+
+  componentDidMount() {
+     this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
+   }
 
   componentWillReceiveProps(nextProps) {
     if(this.props.course.id != nextProps.course.id ) {
@@ -28,11 +35,26 @@ export class ManageCoursePage extends Component {
     }
   }
 
+  routerWillLeave(nextLocation) {
+      // return false to prevent a transition w/o prompting the user,
+      // or return a string to allow the user to decide:
+      if (!this.state.isSaved){
+        return 'Your work is not saved! Are you sure you want to leave?';
+      }
+    }
+
   updateCourseState(event) {
     const field = event.target.name;
     let course = this.state.course;
     course[field] = event.target.value;
-    return this.setState({course: course});
+
+    const courseHasAllEmptyInputFields =
+    course.title.length == 0 &&
+    course.authorId.length == 0 &&
+    course.length.length == 0 &&
+    course.category.length == 0;
+
+    return this.setState({course: course, isSaved : courseHasAllEmptyInputFields});
   }
 
   courseFormIsValid () {
@@ -104,7 +126,9 @@ export class ManageCoursePage extends Component {
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  route: PropTypes.object,
+  router: PropTypes.object
 };
 
 //Pull in the React Router context so router is avaliable on this.context.router
@@ -133,4 +157,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage));

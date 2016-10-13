@@ -46,7 +46,11 @@ export class ManageAuthorPage extends Component {
     const field = event.target.name;
     let author = this.state.author;
     author[field] = event.target.value;
-    const authorHasAllEmptyInputFields = author.firstName.length == 0 && author.lastName.length == 0;
+
+    const authorHasAllEmptyInputFields =
+    author.firstName.length == 0 &&
+    author.lastName.length == 0;
+    
     return this.setState({author: author, isSaved : authorHasAllEmptyInputFields});
   }
 
