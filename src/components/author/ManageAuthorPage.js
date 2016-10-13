@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorForm  from './AuthorForm';
 import toastr from 'toastr';
-import {getFullAuthorName} from '../../selectors/selectors';
+import {getById, getFullAuthorName} from '../../selectors/selectors';
 
 export class ManageAuthorPage extends Component {
   constructor(props, context){
@@ -107,19 +107,12 @@ ManageAuthorPage.propTypes = {
   author: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   route: PropTypes.object,
-  router: PropTypes.object,
-  setRouteLeaveHook : PropTypes.func
+  router: PropTypes.object
 };
 
 //Pull in the React Router context so router is avaliable on this.context.router
 ManageAuthorPage.contextTypes = {
   router: PropTypes.object
-};
-
-const getAuthorById = (authors, id) => {
-  const author = authors.filter(author=> author.id == id);
-  if (author.length) return author[0]; // since filter returns an array, have to grab the firts.
-  return null;
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -128,7 +121,7 @@ const mapStateToProps = (state, ownProps) => {
   let author = {id: '', firstName: '', lastName: ''};
 
   if (authorId && state.authors.length > 0) {
-    author = getAuthorById(state.authors, authorId);
+    author = getById(state.authors, authorId);
   }
 
   return {
