@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
+import {Router, Route, withRouter} from 'react-router';
 import {bindActionCreators} from 'redux';
 import * as authorActions from '../../actions/authorActions';
 import AuthorForm  from './AuthorForm';
@@ -13,12 +14,22 @@ export class ManageAuthorPage extends Component {
     this.state = {
       author: Object.assign({}, this.props.author),
       errors: {},
-      saving: false
+      saving: false,
+      isSaved : false
     };
 
     this.updateAuthorState = this.updateAuthorState.bind(this);
     this.saveAuthor = this.saveAuthor.bind(this);
+    this.routerWillLeave = this.routerWillLeave.bind(this);
   }
+
+  componentWillMount() {
+     this.setState({isSaved: false});
+   }
+
+  componentDidMount() {
+     this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
+   }
 
   componentWillReceiveProps(nextProps) {
     if(this.props.author.id != nextProps.author.id ) {
@@ -26,6 +37,14 @@ export class ManageAuthorPage extends Component {
       this.setState({author: Object.assign({}, nextProps.author)});
     }
   }
+
+  routerWillLeave(nextLocation) {
+      // return false to prevent a transition w/o prompting the user,
+      // or return a string to allow the user to decide:
+      if (!this.state.isSaved){
+        return 'Your work is not saved! Are you sure you want to leave?';
+      }
+    }
 
   updateAuthorState(event) {
     const field = event.target.name;
@@ -62,6 +81,7 @@ export class ManageAuthorPage extends Component {
         toastr.error(error);
         this.setState({saving: false});
       });
+      this.setState({isSaved: true});
   }
 
   redirect (author) {
@@ -85,7 +105,10 @@ export class ManageAuthorPage extends Component {
 
 ManageAuthorPage.propTypes = {
   author: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  route: PropTypes.object,
+  router: PropTypes.object,
+  setRouteLeaveHook : PropTypes.func
 };
 
 //Pull in the React Router context so router is avaliable on this.context.router
@@ -119,4 +142,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageAuthorPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageAuthorPage));
