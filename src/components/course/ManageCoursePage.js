@@ -5,6 +5,7 @@ import * as courseActions from '../../actions/courseActions';
 import CourseForm  from './CourseForm';
 import {getById, authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
+import {minimumLength} from '../common/Validation';
 
 export class ManageCoursePage extends Component {
   constructor(props, context){
@@ -34,12 +35,27 @@ export class ManageCoursePage extends Component {
     return this.setState({course: course});
   }
 
-  courseFormIsValid() {
+  courseFormIsValid () {
     let formIsValid = true;
     let errors = {};
 
-    if(this.state.course.title.length < 5) {
-      errors.title = 'Title must be at least 5 characters.';
+    if(this.state.course.title.length < minimumLength) {
+      errors.title = 'Course should have a title.';
+      formIsValid = false;
+    }
+
+    if(this.state.course.authorId < minimumLength) {
+      errors.authorId = 'Course should have an author.';
+      formIsValid = false;
+    }
+
+    if(this.state.course.category.length < minimumLength) {
+      errors.category = 'Course should have a category.';
+      formIsValid = false;
+    }
+
+    if(this.state.course.length < minimumLength) {
+      errors.length = 'Course should have a length.';
       formIsValid = false;
     }
 

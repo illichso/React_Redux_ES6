@@ -1,4 +1,5 @@
 import delay from './delay';
+import {minimumLength} from '../components/common/Validation';
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
@@ -69,9 +70,8 @@ class CourseApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simulate server-side validation
-        const minCourseTitleLength = 1;
-        if (course.title.length < minCourseTitleLength) {
-          reject(`Title must be at least ${minCourseTitleLength} characters.`);
+        if (course.title.length < minimumLength) {
+          reject(`Title must be at least ${minimumLength} character.`);
         }
 
         if (course.id) {
