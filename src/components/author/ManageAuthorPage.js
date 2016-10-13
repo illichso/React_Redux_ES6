@@ -15,17 +15,13 @@ export class ManageAuthorPage extends Component {
       author: Object.assign({}, this.props.author),
       errors: {},
       saving: false,
-      isSaved : false
+      isSaved : true
     };
 
     this.updateAuthorState = this.updateAuthorState.bind(this);
     this.saveAuthor = this.saveAuthor.bind(this);
     this.routerWillLeave = this.routerWillLeave.bind(this);
   }
-
-  componentWillMount() {
-     this.setState({isSaved: false});
-   }
 
   componentDidMount() {
      this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
@@ -50,7 +46,8 @@ export class ManageAuthorPage extends Component {
     const field = event.target.name;
     let author = this.state.author;
     author[field] = event.target.value;
-    return this.setState({author: author});
+    const authorHasAllEmptyInputFields = author.firstName.length == 0 && author.lastName.length == 0;
+    return this.setState({author: author, isSaved : authorHasAllEmptyInputFields});
   }
 
   authorFormIsValid() {
