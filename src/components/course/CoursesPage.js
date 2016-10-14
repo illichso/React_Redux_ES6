@@ -35,8 +35,6 @@ class CoursePage extends Component {
     this.setState({course: course});
     this.setState({deleting: true});
 
-    console.log(`deleteCourse func in CoursePage.js with course.id:[${course.id}]`);
-
     this.props.actions.deleteCourse(course)
       .then(() => this.notifySuccessfulCourseDeletion(course))
       .catch(error => {

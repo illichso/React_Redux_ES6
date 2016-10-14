@@ -127,7 +127,9 @@ export class ManageCoursePage extends Component {
   redirect () {
     this.setState({saving: false});
     toastr.success('Course saved');
-    this.context.router.push('/courses');
+    if(this.context.router) {
+      this.context.router.push('/courses');
+    }
   }
 
   render () {

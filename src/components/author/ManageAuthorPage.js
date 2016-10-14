@@ -81,7 +81,7 @@ export class ManageAuthorPage extends Component {
 
     this.validateFirstName(errors, formIsValid);
     this.validateLastName(errors, formIsValid);
-    
+
     this.setState({errors: errors});
     return formIsValid;
   }
@@ -108,7 +108,9 @@ export class ManageAuthorPage extends Component {
   redirect (author) {
     this.setState({saving: false});
     toastr.success(getFullAuthorName(author) + ' is saved');
-    this.context.router.push('/authors');
+    if(this.context.router) {
+      this.context.router.push('/authors');
+    }
   }
 
   render () {

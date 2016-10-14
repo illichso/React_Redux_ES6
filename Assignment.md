@@ -16,7 +16,7 @@
 - modifications should be done on the ManageCourse page
 Hits: add logic to mapStateToProps
 
-7. Show # courses in Header:
+7. (DONE) Show # courses in Header:
 this will be an example of how Redux's single store model really pays off.
 You'll see that adding this is trivial and there is no worry of getting out of sync.
 
