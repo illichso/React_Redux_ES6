@@ -8,6 +8,12 @@ import {getById, authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
 import {minimumLength} from '../common/Validation';
 
+export const titleErrorMsg = 'Course should have a title.';
+export const authorErrorMsg = 'Course should have an author.';
+export const categoryErrorMsg = 'Course should have a category.';
+export const lengthErrorMsg = 'Course should have a length.';
+export const emptyCourse = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+
 export class ManageCoursePage extends Component {
   constructor(props, context){
     super (props, context);
@@ -64,22 +70,22 @@ export class ManageCoursePage extends Component {
     let errors = {};
 
     if(this.state.course.title.length < minimumLength) {
-      errors.title = 'Course should have a title.';
+      errors.title = titleErrorMsg;
       formIsValid = false;
     }
 
     if(this.state.course.authorId < minimumLength) {
-      errors.authorId = 'Course should have an author.';
+      errors.authorId = authorErrorMsg;
       formIsValid = false;
     }
 
     if(this.state.course.category.length < minimumLength) {
-      errors.category = 'Course should have a category.';
+      errors.category = categoryErrorMsg;
       formIsValid = false;
     }
 
     if(this.state.course.length < minimumLength) {
-      errors.length = 'Course should have a length.';
+      errors.length = lengthErrorMsg;
       formIsValid = false;
     }
 
@@ -141,7 +147,7 @@ ManageCoursePage.contextTypes = {
 const mapStateToProps = (state, ownProps) => {
   const courseId = ownProps.params.id; // from the path `/course/:id`
 
-  let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+  let course = emptyCourse;
 
   if (courseId && state.courses.length > 0) {
     course = getById(state.courses, courseId);

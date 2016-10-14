@@ -10,14 +10,14 @@ const AuthorForm = ({ author, onSave, onChange, saving, errors}) => {
       label="First Name"
       value={author.firstName}
       onChange={onChange}
-      error={errors.title}/>
+      error={errors.firstName}/>
 
       <TextInput
       name="lastName"
       label="Last Name"
       value={author.lastName}
       onChange={onChange}
-      error={errors.title}/>
+      error={errors.lastName}/>
 
       <input
       type="submit"

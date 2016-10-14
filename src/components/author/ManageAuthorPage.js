@@ -6,6 +6,11 @@ import * as authorActions from '../../actions/authorActions';
 import AuthorForm  from './AuthorForm';
 import toastr from 'toastr';
 import {getById, getFullAuthorName} from '../../selectors/selectors';
+import {minimumLength} from '../common/Validation';
+
+export const firstNameErrorMsg = 'Author should have a first name.';
+export const lastNameErrorMsg = 'Author should have a last name.';
+export const emptyAuthor = {id: '', firstName: '', lastName: ''};
 
 export class ManageAuthorPage extends Component {
   constructor(props, context){
@@ -24,7 +29,9 @@ export class ManageAuthorPage extends Component {
   }
 
   componentDidMount() {
-     this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
+    if(this.props.router) {
+      this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
+    }
    }
 
   componentWillReceiveProps(nextProps) {
@@ -50,7 +57,7 @@ export class ManageAuthorPage extends Component {
     const authorHasAllEmptyInputFields =
     author.firstName.length == 0 &&
     author.lastName.length == 0;
-    
+
     return this.setState({author: author, isSaved : authorHasAllEmptyInputFields});
   }
 
@@ -58,8 +65,13 @@ export class ManageAuthorPage extends Component {
     let formIsValid = true;
     let errors = {};
 
-    if(this.state.author.firstName.length < 0) {
-      errors.title = 'Title must be at least 1 characters.';
+    if(this.state.author.firstName.length < minimumLength) {
+      errors.firstName = firstNameErrorMsg;
+      formIsValid = false;
+    }
+
+    if(this.state.author.lastName.length < minimumLength) {
+      errors.lastName = lastNameErrorMsg;
       formIsValid = false;
     }
 
@@ -79,6 +91,7 @@ export class ManageAuthorPage extends Component {
     this.props.actions.saveAuthor(this.state.author)
       .then(() => this.redirect(this.state.author))
       .catch(error => {
+        console.log(error);
         toastr.error(error);
         this.setState({saving: false});
       });
@@ -119,7 +132,7 @@ ManageAuthorPage.contextTypes = {
 const mapStateToProps = (state, ownProps) => {
   const authorId = ownProps.params.id; // from the path `/author/:id`
 
-  let author = {id: '', firstName: '', lastName: ''};
+  let author = emptyAuthor;
 
   if (authorId && state.authors.length > 0) {
     author = getById(state.authors, authorId);
