@@ -61,20 +61,27 @@ export class ManageAuthorPage extends Component {
     return this.setState({author: author, isSaved : authorHasAllEmptyInputFields});
   }
 
-  authorFormIsValid() {
-    let formIsValid = true;
-    let errors = {};
-
+  validateFirstName(errors, formIsValid) {
     if(this.state.author.firstName.length < minimumLength) {
       errors.firstName = firstNameErrorMsg;
       formIsValid = false;
     }
+  }
 
+  validateLastName(errors, formIsValid) {
     if(this.state.author.lastName.length < minimumLength) {
       errors.lastName = lastNameErrorMsg;
       formIsValid = false;
     }
+  }
 
+  authorFormIsValid() {
+    let formIsValid = true;
+    let errors = {};
+
+    this.validateFirstName(errors, formIsValid);
+    this.validateLastName(errors, formIsValid);
+    
     this.setState({errors: errors});
     return formIsValid;
   }

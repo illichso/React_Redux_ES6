@@ -65,29 +65,42 @@ export class ManageCoursePage extends Component {
     return this.setState({course: course, isSaved : courseHasAllEmptyInputFields});
   }
 
-  courseFormIsValid () {
-    let formIsValid = true;
-    let errors = {};
-
+  validateTitle(errors, formIsValid) {
     if(this.state.course.title.length < minimumLength) {
       errors.title = titleErrorMsg;
       formIsValid = false;
     }
+  }
 
+  validateAuthor(errors, formIsValid) {
     if(this.state.course.authorId < minimumLength) {
       errors.authorId = authorErrorMsg;
       formIsValid = false;
     }
+  }
 
+  validateCategory(errors, formIsValid) {
     if(this.state.course.category.length < minimumLength) {
       errors.category = categoryErrorMsg;
       formIsValid = false;
     }
+  }
 
+  validateLength(errors, formIsValid) {
     if(this.state.course.length < minimumLength) {
       errors.length = lengthErrorMsg;
       formIsValid = false;
     }
+  }
+
+  courseFormIsValid () {
+    let formIsValid = true;
+    let errors = {};
+
+    this.validateTitle(errors, formIsValid);
+    this.validateAuthor(errors, formIsValid);
+    this.validateCategory(errors, formIsValid);
+    this.validateLength(errors, formIsValid);
 
     this.setState({errors: errors});
     return formIsValid;
