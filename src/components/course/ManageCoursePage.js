@@ -25,7 +25,9 @@ export class ManageCoursePage extends Component {
   }
 
   componentDidMount() {
-     this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
+    if(this.props.router){
+       this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
+     }
    }
 
   componentWillReceiveProps(nextProps) {
