@@ -1,5 +1,10 @@
 import delay from './delay';
 import {minimumLength} from '../components/common/Validation';
+import {
+  titleErrorMsg,
+  authorErrorMsg,
+  categoryErrorMsg,
+  lengthErrorMsg} from '../components/course/ManageCoursePage';
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
@@ -71,7 +76,19 @@ class CourseApi {
       setTimeout(() => {
         // Simulate server-side validation
         if (course.title.length < minimumLength) {
-          reject(`Title must be at least ${minimumLength} character.`);
+          reject(titleErrorMsg);
+        }
+
+        if (course.authorId.length < minimumLength) {
+          reject(authorErrorMsg);
+        }
+
+        if (course.category.length < minimumLength) {
+          reject(categoryErrorMsg);
+        }
+
+        if (course.length < minimumLength) {
+          reject(lengthErrorMsg);
         }
 
         if (course.id) {

@@ -1,7 +1,10 @@
 import {createSelector} from "reselect";
 
 export const getFullAuthorName = author => {
-  return author.firstName + ' ' + author.lastName;
+  if(author) {
+    return author.firstName + ' ' + author.lastName;
+  }
+  return '';
 };
 
 export const authorsFormattedForDropdown = authors => {

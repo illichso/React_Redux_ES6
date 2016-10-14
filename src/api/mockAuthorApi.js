@@ -1,5 +1,8 @@
 import delay from './delay';
 import {minimumLength} from '../components/common/Validation';
+import {
+  firstNameErrorMsg,
+  lastNameErrorMsg} from '../components/author/ManageAuthorPage';
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
@@ -42,11 +45,11 @@ class AuthorApi {
       setTimeout(() => {
         // Simulate server-side validation
         if (author.firstName.length < minimumLength) {
-          reject(`First Name must be at least ${minimumLength} character.`);
+          reject(firstNameErrorMsg);
         }
 
         if (author.lastName.length < minimumLength) {
-          reject(`Last Name must be at least ${minimumLength} character.`);
+          reject(lastNameErrorMsg);
         }
 
         if (author.id) {

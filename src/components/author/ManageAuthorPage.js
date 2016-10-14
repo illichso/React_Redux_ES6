@@ -96,13 +96,14 @@ export class ManageAuthorPage extends Component {
     this.setState({saving: true});
 
     this.props.actions.saveAuthor(this.state.author)
-      .then(() => this.redirect(this.state.author))
+      .then(() => {
+        this.setState({isSaved: true});
+        this.redirect();})
       .catch(error => {
         console.log(error);
         toastr.error(error);
         this.setState({saving: false});
       });
-      this.setState({isSaved: true});
   }
 
   redirect (author) {

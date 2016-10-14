@@ -116,7 +116,9 @@ export class ManageCoursePage extends Component {
     this.setState({saving: true});
 
     this.props.actions.saveCourse(this.state.course)
-      .then(() => this.redirect())
+      .then(() => {
+        this.setState({isSaved: true});
+        this.redirect();})
       .catch(error => {
         console.log(error);
         toastr.error(error);
