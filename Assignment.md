@@ -1,15 +1,15 @@
-1. Author administration:
+1. (DONE) Author administration:
 - add support fro administering authors like courses;
 - add logic to prevent deleting an author who has a course
 
-2. Delete course.
+2. (DONE) Delete course.
 
-3. Hide empty course list once all courses are deleted.
+3. (DONE) Hide empty course list once all courses are deleted.
 
-4. Unsaved changes message:
+4. (DONE) Unsaved changes message:
 - show message to users if they try to leave the ManageCourse page with unsaved changes.
 
-5. Client-side validation
+5. (DONE) Client-side validation
 - enhance the ManageCourse page client-side validation to validate things like category and length data.
 
 6. Handle 404's:
@@ -23,7 +23,7 @@ You'll see that adding this is trivial and there is no worry of getting out of s
 8. Pagination
 or infinite scrolling to the tables we are using to support large data sets.
 
-9. Sort course table
+9. (DONE) Sort course table
 alphabetically by title by default so that updated course will not necessarily end up in the bottom of the course list
 Hint: mapStateToProps is were it should be done
 
