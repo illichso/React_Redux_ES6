@@ -6,12 +6,12 @@ import * as courseActions from '../../actions/courseActions';
 import CourseForm  from './CourseForm';
 import {getById, authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
-import {minimumLength} from '../common/Validation';
+import {minimumLength, durationPattern} from '../common/Validation';
 
 export const titleErrorMsg = 'Course should have a title.';
 export const authorErrorMsg = 'Course should have an author.';
 export const categoryErrorMsg = 'Course should have a category.';
-export const lengthErrorMsg = 'Course should have a length.';
+export const lengthErrorMsg = 'Course should have a valid length with pattern HH:MM:SS';
 export const emptyCourse = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
 
 export class ManageCoursePage extends Component {
@@ -70,6 +70,7 @@ export class ManageCoursePage extends Component {
       errors.title = titleErrorMsg;
       formIsValid = false;
     }
+    return formIsValid;
   }
 
   validateAuthor(errors, formIsValid) {
@@ -77,6 +78,7 @@ export class ManageCoursePage extends Component {
       errors.authorId = authorErrorMsg;
       formIsValid = false;
     }
+    return formIsValid;
   }
 
   validateCategory(errors, formIsValid) {
@@ -84,23 +86,28 @@ export class ManageCoursePage extends Component {
       errors.category = categoryErrorMsg;
       formIsValid = false;
     }
+    return formIsValid;
   }
 
   validateLength(errors, formIsValid) {
-    if(this.state.course.length < minimumLength) {
+    console.log(`in validateLength func durationPattern:[${durationPattern}]`);
+    console.log(`in validateLength func this.state.course.length:[${this.state.course.length}]`);
+    console.log(`in validateLength func !this.state.course.length.match(durationPattern):[${!this.state.course.length.match(durationPattern)}]`);
+    if(!this.state.course.length.match(durationPattern)) {
       errors.length = lengthErrorMsg;
       formIsValid = false;
     }
+    return formIsValid;
   }
 
   courseFormIsValid () {
     let formIsValid = true;
     let errors = {};
 
-    this.validateTitle(errors, formIsValid);
-    this.validateAuthor(errors, formIsValid);
-    this.validateCategory(errors, formIsValid);
-    this.validateLength(errors, formIsValid);
+    formIsValid = this.validateTitle(errors, formIsValid);
+    formIsValid = this.validateAuthor(errors, formIsValid);
+    formIsValid = this.validateCategory(errors, formIsValid);
+    formIsValid = this.validateLength(errors, formIsValid);
 
     this.setState({errors: errors});
     return formIsValid;

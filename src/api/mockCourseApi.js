@@ -1,5 +1,5 @@
 import delay from './delay';
-import {minimumLength} from '../components/common/Validation';
+import {minimumLength, durationPattern} from '../components/common/Validation';
 import {
   titleErrorMsg,
   authorErrorMsg,
@@ -87,7 +87,7 @@ class CourseApi {
           reject(categoryErrorMsg);
         }
 
-        if (course.length < minimumLength) {
+        if (!course.length.match(durationPattern)) {
           reject(lengthErrorMsg);
         }
 
