@@ -65,49 +65,47 @@ export class ManageCoursePage extends Component {
     return this.setState({course: course, isSaved : courseHasAllEmptyInputFields});
   }
 
-  validateTitle(errors, formIsValid) {
+  validateTitle(errorReport) {
     if(this.state.course.title.length < minimumLength) {
-      errors.title = titleErrorMsg;
-      formIsValid = false;
+      errorReport.errors.title = titleErrorMsg;
+      errorReport.formIsValid = false;
     }
-    return formIsValid;
   }
 
-  validateAuthor(errors, formIsValid) {
+  validateAuthor(errorReport) {
     if(this.state.course.authorId < minimumLength) {
-      errors.authorId = authorErrorMsg;
-      formIsValid = false;
+      errorReport.errors.authorId = authorErrorMsg;
+      errorReport.formIsValid = false;
     }
-    return formIsValid;
   }
 
-  validateCategory(errors, formIsValid) {
+  validateCategory(errorReport) {
     if(this.state.course.category.length < minimumLength) {
-      errors.category = categoryErrorMsg;
-      formIsValid = false;
+      errorReport.errors.category = categoryErrorMsg;
+      errorReport.formIsValid = false;
     }
-    return formIsValid;
   }
 
-  validateLength(errors, formIsValid) {
-    if(!this.state.course.length.match(durationPattern)) {
-      errors.length = lengthErrorMsg;
-      formIsValid = false;
+  validateLength(errorReport) {
+    if(!durationPattern.test(this.state.course.length)) {
+      errorReport.errors.length = lengthErrorMsg;
+      errorReport.formIsValid = false;
     }
-    return formIsValid;
   }
 
   courseFormIsValid () {
-    let formIsValid = true;
-    let errors = {};
+    const errorReport = {
+      formIsValid: true,
+      errors: {}
+    };
 
-    formIsValid = this.validateTitle(errors, formIsValid);
-    formIsValid = this.validateAuthor(errors, formIsValid);
-    formIsValid = this.validateCategory(errors, formIsValid);
-    formIsValid = this.validateLength(errors, formIsValid);
+    this.validateTitle(errorReport);
+    this.validateAuthor(errorReport);
+    this.validateCategory(errorReport);
+    this.validateLength(errorReport);
 
-    this.setState({errors: errors});
-    return formIsValid;
+    this.setState({errors: errorReport.errors});
+    return errorReport.formIsValid;
   }
 
   saveCourse(event) {
