@@ -12,7 +12,7 @@
 5. (DONE) Client-side validation
 - enhance the ManageCourse page client-side validation to validate things like category and length data.
 
-5.1 Make category validation for hh:mm:ss format and not just for any character as it is now.
+5.1 (DONE) Make category validation for hh:mm:ss format and not just for any character as it is now.
 
 6. Handle 404's:
 - modifications should be done on the ManageCourse page
