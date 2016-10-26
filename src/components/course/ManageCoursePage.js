@@ -90,9 +90,6 @@ export class ManageCoursePage extends Component {
   }
 
   validateLength(errors, formIsValid) {
-    console.log(`in validateLength func durationPattern:[${durationPattern}]`);
-    console.log(`in validateLength func this.state.course.length:[${this.state.course.length}]`);
-    console.log(`in validateLength func !this.state.course.length.match(durationPattern):[${!this.state.course.length.match(durationPattern)}]`);
     if(!this.state.course.length.match(durationPattern)) {
       errors.length = lengthErrorMsg;
       formIsValid = false;
